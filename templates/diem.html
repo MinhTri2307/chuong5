@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Tính điểm học phần{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .diem {
+        max-width: 420px;
+        background: #fff;
+        border: 1px solid #cfe3d3;
+        border-radius: 10px;
+        padding: 24px;
+    }
+    .diem label {
+        display: block;
+        margin-top: 14px;
+        font-weight: bold;
+    }
+    .diem input {
+        width: 100%;
+        padding: 8px 10px;
+        margin-top: 4px;
+        font-size: 16px;
+        border: 1px solid #a9c5b0;
+        border-radius: 6px;
+    }
+    .diem .error {
+        color: #b3261e;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+    .diem button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #1f5130;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .diem button:hover { background: #2e7d46; }
+    .result {
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #2e7d32;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Tính điểm học phần</h1>
+
+<form class="diem" method="post" action="{{ url_for('diem') }}">
+    {% for f in fields %}
+    <label for="{{ f.key }}">{{ f.label }}</label>
+    <input type="text" id="{{ f.key }}" name="{{ f.key }}" value="{{ values[f.key] }}" inputmode="decimal">
+    {% if errors[f.key] %}<div class="error">{{ errors[f.key] }}</div>{% endif %}
+    {% endfor %}
+
+    <button type="submit">Tính điểm</button>
+
+    {% if result %}
+    <div class="result">{{ result }}</div>
+    {% endif %}
+</form>
+{% endblock %}

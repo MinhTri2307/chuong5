@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Bài tập Chương 5{% endblock %}</title>
+    {% block styles %}
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f8f4;
+            color: #1f2d24;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        nav {
+            background: #1f5130;
+            padding: 14px 32px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        nav .brand {
+            color: #c8e6c9;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: auto;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        nav a:hover { color: #c8e6c9; }
+        main {
+            flex: 1;
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        footer {
+            background: #1f5130;
+            color: #c8e6c9;
+            text-align: center;
+            padding: 16px;
+            font-size: 14px;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <span class="brand">Bài tập Chương 5</span>
+        <a href="{{ url_for('calc') }}">Máy tính</a>
+        <a href="{{ url_for('diem') }}">Tính điểm</a>
+        <a href="{{ url_for('bmi') }}">BMI</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Tính chỉ số BMI{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .bmi {
+        max-width: 420px;
+        background: #fff;
+        border: 1px solid #cfe3d3;
+        border-radius: 10px;
+        padding: 24px;
+    }
+    .bmi label { display: block; margin-top: 14px; font-weight: bold; }
+    .bmi input {
+        width: 100%;
+        padding: 8px 10px;
+        margin-top: 4px;
+        font-size: 16px;
+        border: 1px solid #a9c5b0;
+        border-radius: 6px;
+    }
+    .bmi .error { color: #b3261e; font-size: 14px; margin-top: 4px; }
+    .bmi button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #1f5130;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .bmi button:hover { background: #2e7d46; }
+    .result { margin-top: 20px; font-size: 22px; font-weight: bold; }
+    .result.xanh { color: #2e7d32; }
+    .result.vang { color: #b8860b; }
+    .result.do { color: #c62828; }
+    .hint { margin-top: 6px; font-size: 15px; font-weight: normal; color: #1f2d24; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Tính chỉ số BMI</h1>
+
+<form class="bmi" method="post" action="{{ url_for('bmi') }}">
+    <label for="h">Chiều cao (cm)</label>
+    <input type="text" id="h" name="h" value="{{ values.h }}" inputmode="decimal">
+    {% if errors.h %}<div class="error">{{ errors.h }}</div>{% endif %}
+
+    <label for="w">Cân nặng (kg)</label>
+    <input type="text" id="w" name="w" value="{{ values.w }}" inputmode="decimal">
+    {% if errors.w %}<div class="error">{{ errors.w }}</div>{% endif %}
+
+    <button type="submit">Tính BMI</button>
+
+    {% if result %}
+    <div class="result {{ result.color }}">
+        {{ result.text }}
+        <div class="hint">Cân nặng nên có: {{ result.range }}</div>
+    </div>
+    {% endif %}
+</form>
+{% endblock %}

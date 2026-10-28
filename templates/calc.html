@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Máy tính cơ bản{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .calc {
+        max-width: 420px;
+        background: #fff;
+        border: 1px solid #cfe3d3;
+        border-radius: 10px;
+        padding: 24px;
+    }
+    .calc label {
+        display: block;
+        margin-top: 14px;
+        font-weight: bold;
+    }
+    .calc input,
+    .calc select {
+        width: 100%;
+        padding: 8px 10px;
+        margin-top: 4px;
+        font-size: 16px;
+        border: 1px solid #a9c5b0;
+        border-radius: 6px;
+    }
+    .calc .error {
+        color: #b3261e;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+    .calc button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #1f5130;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .calc button:hover { background: #2e7d46; }
+    .result {
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #2e7d32;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Máy tính cơ bản</h1>
+
+<form class="calc" method="post" action="{{ url_for('calc') }}">
+    <label for="a">Số thứ nhất</label>
+    <input type="text" id="a" name="a" value="{{ a }}" inputmode="decimal">
+    {% if errors.a %}<div class="error">{{ errors.a }}</div>{% endif %}
+
+    <label for="op">Phép toán</label>
+    <select id="op" name="op">
+        {% for o in ops %}
+        <option value="{{ o }}" {% if o == op %}selected{% endif %}>{{ o }}</option>
+        {% endfor %}
+    </select>
+    {% if errors.op %}<div class="error">{{ errors.op }}</div>{% endif %}
+
+    <label for="b">Số thứ hai</label>
+    <input type="text" id="b" name="b" value="{{ b }}" inputmode="decimal">
+    {% if errors.b %}<div class="error">{{ errors.b }}</div>{% endif %}
+
+    <button type="submit">Tính</button>
+
+    {% if result %}
+    <div class="result">{{ result }}</div>
+    {% endif %}
+</form>
+{% endblock %}
